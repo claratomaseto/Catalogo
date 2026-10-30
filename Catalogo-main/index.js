@@ -1,74 +1,70 @@
-
-const express = require('express');
-const app = express();
-
-//1. Middleware obrigatorio para ler JSON
-app.use(express.json());
-
-app.use(express.static('site'));
-
-// 0. Crie a lista para armazenar os dados em memória
-let lista = [
-    {
-        titulo: "obra de arte 1",
-        descricao: "ficticio",
-        imagem: "https://via.placeholder.com/150",
-        descImagem: "Imagem ficticia '"
-    },
-    {
-        titulo: "obra de arte 2",
-        descricao: "ficticio2",
-        imagem: "https://via.placeholder.com/150",
-        descImagem: "Imagem ficticia 2"
+class Personagem {
+    constructor (nome, codinome, tipo, status, localizacao, imagem) {
+        this.nome = nome;
+        this.codinome = codinome;
+        this.tipo = tipo;
+        this.status = status;
+        this.localizacao = localizacao;
+        this.imagem = imagem;
     }
-];
+}
 
-// Rota GET: Devolve a lista completa
-app.get( '/api/lista', (req, res) => {
-    res.json(lista);
-});
+const formulario = document.getElementById('meuFormulario');
 
-//2. Rota POST: Recebe e guarda a nova obra
-app.post('/api/lista', (req, res) => {
-    const novaObra = req.body;
-    lista.push(novaObra);
-    res.json({ status: "sucessos"});
-});
+if (formulario) {
+    formulario.addEventListener('submit', function(evento) {
+        evento.preventDefault();
 
-app.listen(3000, () => {
-    console.log("Servidor escutando em http://localhost:3000");
-});
+        const nomeF = document.getElementById('nome').value;
+        const codinomeF = document.getElementById('codinome').value;
+        const tipoF = document.getElementById('tipo').value;
+        const statusF = document.getElementById('status').value;
+        const localizacaoF = document.getElementById('localizacao').value;
+        const imagemF = document.getElementById('imagem').value;
 
+        const novoPersonagem = new Personagem(nomeF, codinomeF, tipoF, statusF, localizacaoF, imagemF);
 
+        fetch('/api/lista', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(novoPersonagem)
+        })
+        .then(resposta => resposta.json())
+        .then(() => {
+            alert('Cadastrado com sucesso!');
+            formulario.reset();
+            window.location.href = 'index.html';
+        })
+        .catch(erro => console.error("Erro ao enviar:", erro));
+    });
+}
 
+const container = document.querySelector('.todosCards');
 
+if (container) {
+    fetch('/api/lista')
+        .then((resposta) => resposta.json())
+        .then((dados) => {
+            container.innerHTML = '';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            dados.forEach(item => {
+                container.innerHTML += `
+                <div class="card">
+                    <div class="texto">
+                        <h3>${item.codinome}</h3>
+                        <p><strong>Nome:</strong> ${item.nome}</p>
+                        <p><strong>Tipo:</strong> ${item.tipo}</p>
+                        <p><strong>Status:</strong> ${item.status}</p>
+                        <p><strong>Localização:</strong> ${item.localizacao}</p>
+                    </div>
+                    <div class="img">
+                        <img src="${item.imagem}" alt="Imagem de ${item.codinome}">
+                    </div>
+                </div>
+                `;
+            });
+        })
+        .catch((erro) => console.error("Erro ao buscar os dados:", erro));
+}

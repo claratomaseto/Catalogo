@@ -8,42 +8,52 @@
 </head>
 <body>
 
-    <div class="page-container form-container">
+    <div class="form-page-container">
         
         <header class="header">
-            <h1 class="titulo">Cadastrar Obra de Arte</h1>
+            <h1 class="titulo">Cadastrar Personagem</h1>
             <a href="index.html" class="btn-voltar">← Voltar ao Catálogo</a>
         </header>
 
         <main class="content">
             <form id="meuFormulario" class="formulario-cadastro">
-                
+    
                 <div class="input-grupo">
-                    <label for="titulo">Título da Obra:</label>
-                    <input type="text" id="titulo" required placeholder="Ex: Noite Estrelada">
-                </div>
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" required placeholder="Ex: Jason Todd">
+            </div>
 
-                <div class="input-grupo">
-                    <label for="imagem">URL da Imagem:</label>
-                    <input type="url" id="imagem" required placeholder="https://exemplo.com/imagem.jpg">
-                </div>
+            <div class="input-grupo">
+                <label for="codinome">Codinome:</label>
+                <input type="text" id="codinome" required placeholder="Ex: Capuz Vermelho">
+            </div>
 
-                <div class="input-grupo">
-                    <label for="descricao">Descrição (Alt da Imagem):</label>
-                    <input type="text" id="descricao" required placeholder="Breve descrição da imagem para acessibilidade">
-                </div>
+            <div class="input-grupo">
+                <label for="tipo">Tipo:</label>
+                <input type="text" id="tipo" required placeholder="Ex: Anti-herói">
+            </div>
 
-                <div class="input-grupo">
-                    <label for="paragrafo">Parágrafo / Texto sobre a Obra:</label>
-                    <textarea id="paragrafo" rows="4" required placeholder="Escreva sobre a obra..."></textarea>
-                </div>
+            <div class="input-grupo">
+                <label for="status">Status:</label>
+                <input type="text" id="status" required placeholder="Ex: Ativo">
+            </div>
 
-                <button type="submit" class="btn-enviar">Cadastrar Obra</button>
-            </form>
+            <div class="input-grupo">
+                <label for="localizacao">Localização:</label>
+                <input type="text" id="localizacao" required placeholder="Ex: Gotham City">
+            </div>
+            
+            <div class="input-grupo">
+                <label for="imagem">URL da Imagem:</label>
+                <input type="url" id="imagem" required placeholder="https://exemplo.com/imagem.jpg">
+            </div>
+
+            <button type="submit" class="btn-enviar">Cadastrar Personagem</button>
+        </form>
         </main>
 
         <footer class="footer">
-            <p>&copy; 2026 - Catálogo Red Hood</p>
+            <p>&copy; 2026 - Um Catálogo</p>
         </footer>
 
     </div>
